@@ -1,0 +1,27 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 50px;
+}
+
+h1 {
+  text-align: center;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.input-container {
+  margin-bottom: 20px;
+}
+
+.output-container {
+  margin-top: 20px;
+}
+
+.output {
+  margin-bottom: 10px;
+}
