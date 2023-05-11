@@ -6,26 +6,30 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 </head>
-  <body>
-    <div class="container">
-      <h1>Fasttext Language Recognition</h1>
-      <form method="POST">
+<body>
+<div class="container">
+    <h1>Fasttext Language Recognition</h1>
+    <form method="POST">
         <div class="input-container">
-          <label for="text">Enter text:</label><br>
-          <textarea id="text" name="text" rows="4" cols="50"></textarea>
+            <label for="text">Enter text:</label><br>
+            <textarea id="text" name="text" rows="4" cols="50"></textarea>
         </div>
         <button type="submit">Recognize Language</button>
-      </form>
-      {% if text %}
-      <div class="output-container">
-        <div class="output">
-          <strong>Recognized Language:</strong> {{ result.language }}
+    </form>
+    {% if text %}
+        <div class="output-container">
+            {% for result in results %}
+                <div class="output">
+                    <strong>Recognized Language:</strong> {{ result.language }}
+                </div>
+                <div class="output">
+                    <strong>Probability:</strong> {{ result.probability }}
+                </div>
+                <br>
+            {% endfor %}
         </div>
-        <div class="output">
-          <strong>Probability:</strong> {{ result.probability }}
-        </div>
-      </div>
-      {% endif %}
-    </div>
-  </body>
+    {% endif %}
+
+</div>
+</body>
 </html>

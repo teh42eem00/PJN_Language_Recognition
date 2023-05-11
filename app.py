@@ -20,15 +20,17 @@ def index():
 @app.route('/', methods=['POST'])
 def process_text():
     text = request.form['text']
-    result = detect_language(text)
-    return render_template('index.html', text=text, result=result)
+    results = detect_language(text)
+    return render_template('index.html', text=text, results=results)
 
 
 def detect_language(text):
-    prediction = model.predict(text)
-    language = prediction[0][0].replace('__label__', '')
-    probability = prediction[1][0]
-    return {'language': language, 'probability': probability}
+    predictions = model.predict(text, k=2)
+    results = []
+    for label, probability in zip(predictions[0], predictions[1]):
+        language = label.replace('__label__', '')
+        results.append({'language': language, 'probability': probability})
+    return results
 
 
 if __name__ == '__main__':
