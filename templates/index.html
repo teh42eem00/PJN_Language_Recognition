@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Language Recognition</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+  <body>
+    <div class="container">
+      <h1>Language Recognition</h1>
+      <form method="POST">
+        <div class="input-container">
+          <label for="text">Enter text:</label><br>
+          <textarea id="text" name="text" rows="4" cols="50"></textarea>
+        </div>
+        <button type="submit">Recognize Language</button>
+      </form>
+      {% if text %}
+      <div class="output-container">
+        <div class="output">
+          <strong>Recognized Language:</strong> {{ result.language }}
+        </div>
+        <div class="output">
+          <strong>Probability:</strong> {{ result.probability }}
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </body>
+</html>
