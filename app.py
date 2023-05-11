@@ -9,25 +9,26 @@ from flask import Flask, render_template, request
 import fasttext
 
 app = Flask(__name__)
+model = fasttext.load_model('lid.176.ftz')
 
 
 @app.route('/')
 def index():
-    en_text = "Hello, how are you doing this beautiful day?"
-    detected_language = detect_language(en_text)
-    print(detected_language)
-    language = detected_language[0][0].replace('__label__', '')
-    probability = str(detected_language[1][0])
-    return "Detected languages:" + language + ", Probability: " + probability
-    # return render_template('index.html')
+    return render_template('index.html')
+
+
+@app.route('/', methods=['POST'])
+def process_text():
+    text = request.form['text']
+    result = detect_language(text)
+    return render_template('index.html', text=text, result=result)
 
 
 def detect_language(text):
-    # Predict the language using the predict function of the FastText object
-    model = fasttext.load_model('lid.176.ftz')
-    result = model.predict(text, k=1)
-    # Return the detected language label and probability
-    return result
+    prediction = model.predict(text)
+    language = prediction[0][0].replace('__label__', '')
+    probability = prediction[1][0]
+    return {'language': language, 'probability': probability}
 
 
 if __name__ == '__main__':
