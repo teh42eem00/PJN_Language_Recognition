@@ -13,19 +13,22 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    en_text = "Hello, how are you doing this beautiful day?"
+    detected_language = detect_language(en_text)
+    print(detected_language)
+    language = detected_language[0][0].replace('__label__', '')
+    probability = str(detected_language[1][0])
+    return "Detected languages:" + language + ", Probability: " + probability
+    # return render_template('index.html')
 
 
 def detect_language(text):
     # Predict the language using the predict function of the FastText object
-    result = model.predict(text, k=2)
+    model = fasttext.load_model('lid.176.ftz')
+    result = model.predict(text, k=1)
     # Return the detected language label and probability
     return result
 
 
 if __name__ == '__main__':
     app.run()
-    model = fasttext.load_model('lid.176.ftz')
-    en_text = "Hello, how are you doing this beautiful day?"
-    detected_language = detect_language(en_text)
-    print("Detected languages:", detected_language)
