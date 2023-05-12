@@ -7,29 +7,39 @@
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 </head>
 <body>
-<div class="container">
-    <h1>Fasttext Language Recognition</h1>
-    <form method="POST">
-        <div class="input-container">
-            <label for="text">Enter text:</label><br>
-            <textarea id="text" name="text" rows="4" cols="50"></textarea>
-        </div>
-        <button type="submit">Recognize Language</button>
-    </form>
-    {% if text %}
+    <div class="container">
+        <h1>Fasttext Language Recognition</h1>
+        <form method="POST">
+            <div class="input-container">
+                <label for="text">Enter text:</label><br>
+                <textarea id="text" name="text" rows="4" cols="50"></textarea>
+            </div>
+            <button type="submit">Recognize Language</button>
+        </form>
+        {% if text %}
         <div class="output-container">
-            {% for result in results %}
-                <div class="output">
-                    <strong>Recognized Language:</strong> {{ result.language }}
+            <div class="output">
+                <div class="column">
+                    <h2>Own Model</h2>
+                    {% for result in results.own_model %}
+                    <div>
+                        <strong>Language:</strong> {{ result.language }}<br>
+                        <strong>Probability:</strong> {{ result.probability }}
+                    </div>
+                    {% endfor %}
                 </div>
-                <div class="output">
-                    <strong>Probability:</strong> {{ result.probability }}
+                <div class="column">
+                    <h2>Pretrained Model</h2>
+                    {% for result in results.pretrained_model %}
+                    <div>
+                        <strong>Language:</strong> {{ result.language }}<br>
+                        <strong>Probability:</strong> {{ result.probability }}
+                    </div>
+                    {% endfor %}
                 </div>
-                <br>
-            {% endfor %}
+            </div>
         </div>
-    {% endif %}
-
-</div>
+        {% endif %}
+    </div>
 </body>
 </html>
