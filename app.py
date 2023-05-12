@@ -9,7 +9,15 @@ from flask import Flask, render_template, request
 import fasttext
 
 app = Flask(__name__)
-model = fasttext.load_model('lid.176.ftz')
+own_model = fasttext.train_supervised(input='static/combined.txt', label_prefix="__label__", epoch=25, lr=0.1, wordNgrams=1, bucket=2000000, dim=300, thread=2)
+# print(own_model.words)
+# print(own_model.labels)
+model = fasttext.load_model('static/lid.176.ftz')
+
+test = "trochę dobry und deutschland"
+
+print(own_model.predict(test, k=2))
+print(model.predict(test, k=2))
 
 
 @app.route('/')
@@ -20,15 +28,17 @@ def index():
 @app.route('/', methods=['POST'])
 def process_text():
     text = request.form['text']
-    result = detect_language(text)
-    return render_template('index.html', text=text, result=result)
+    results = detect_language(text)
+    return render_template('index.html', text=text, results=results)
 
 
 def detect_language(text):
-    prediction = model.predict(text)
-    language = prediction[0][0].replace('__label__', '')
-    probability = prediction[1][0]
-    return {'language': language, 'probability': probability}
+    predictions = model.predict(text, k=2)
+    results = []
+    for label, probability in zip(predictions[0], predictions[1]):
+        language = label.replace('__label__', '')
+        results.append({'language': language, 'probability': probability})
+    return results
 
 
 if __name__ == '__main__':
