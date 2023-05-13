@@ -44,10 +44,8 @@ def index():
 @app.route('/', methods=['POST'])
 def process_text():
     text = request.form['text']
-    pretext = text.lower()
-    pretext = re.sub(r'\n', ' ', pretext)
-    pretext = re.sub(r'[^a-zA-Z0-9\s]', '', pretext)
-    results = detect_language(pretext, own_model, model_176)
+    text = re.sub(r'\n', ' ', text)
+    results = detect_language(text, own_model, model_176)
     own_model_info = {
         'No. of validated records': own_model_test_results[0],
         'Precision': own_model_test_results[1],

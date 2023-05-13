@@ -11,8 +11,6 @@ def process_file(file_path, output_file, language_code, num_records=None):
     new_lines = []
     for line in lines:
         line = line.strip()
-        line = line.lower()
-        line = re.sub(r'[^a-zA-Z0-9\s]', '', line)
         line = re.sub(r'^\d+\t\w+\t', f'__label__{language_code}\t', line)
 
         new_lines.append(line)
@@ -31,8 +29,6 @@ def process_test_set(input_file, output_file, language_code, num_records=None):
     new_lines = []
     for line in lines:
         line = line.strip()
-        line = line.lower()
-        line = re.sub(r'[^a-zA-Z0-9\s]', '', line)
         line = re.sub(r'^\d+\t\w+\t', f'__label__{language_code}\t', line)
         new_lines.append(line)
 
