@@ -47,3 +47,12 @@ Start the docker image
 
 That's it, application should listen on port 5000 of Docker host IP address.
 
+
+
+## Authors
+
+- [@teh42eem00](https://www.github.com/teh42eem00)
+- [@mpieczara97](https://www.github.com/mpieczara97)
+- Credits for sentences to [Tatoeba](https://tatoeba.org/)
+- Credits for language models to A. Joulin, E. Grave, P. Bojanowski, T. Mikolov, [Bag of Tricks for Efficient Text Classification](https://arxiv.org/abs/1607.01759)
+- Credits for language models to A. Joulin, E. Grave, P. Bojanowski, M. Douze, H. Jégou, T. Mikolov, [FastText.zip: Compressing text classification models](https://arxiv.org/abs/1612.03651)
