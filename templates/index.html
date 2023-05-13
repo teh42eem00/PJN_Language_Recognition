@@ -3,35 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <title>Language Recognition</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='materialize.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 </head>
 <body>
     <div class="container">
-        <h1>Fasttext Language Recognition</h1>
-        <form method="POST">
-            <div class="input-container">
-                <label for="text">Enter text:</label><br>
-                <textarea id="text" name="text" rows="4" cols="50"></textarea>
+        <h1 class="center-align">Fasttext Language Recognition</h1>
+        <form method="POST" class="row">
+            <div class="input-field col s12">
+                <textarea id="text" name="text" class="materialize-textarea"></textarea>
+                <label for="text">Enter text</label>
             </div>
-            <button type="submit">Recognize Language</button>
+            <div class="center-align">
+                <button class="btn waves-effect waves-light" type="submit">Recognize Language</button>
+            </div>
         </form>
         {% if text %}
         <div class="output-container">
-            <div class="output">
-                <div class="column">
-                    <h2>Own Model</h2>
+            <div class="row">
+                <div class="col s6">
+                    <h2 class="center-align">Own Model</h2>
                     {% for result in results.own_model %}
-                    <div>
+                    <div class="card-panel">
                         <strong>Language:</strong> {{ result.language }}<br>
                         <strong>Probability:</strong> {{ result.probability }}
                     </div>
                     {% endfor %}
                 </div>
-                <div class="column">
-                    <h2>Pretrained Model</h2>
+                <div class="col s6">
+                    <h2 class="center-align">Pretrained Model</h2>
                     {% for result in results.pretrained_model %}
-                    <div>
+                    <div class="card-panel">
                         <strong>Language:</strong> {{ result.language }}<br>
                         <strong>Probability:</strong> {{ result.probability }}
                     </div>
@@ -41,5 +44,7 @@
         </div>
         {% endif %}
     </div>
+
+    <script src="{{ url_for('static', filename='materialize.min.js') }}"></script>
 </body>
 </html>

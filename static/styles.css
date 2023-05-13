@@ -1,27 +1,21 @@
-body {
-  font-family: Arial, sans-serif;
-  margin: 50px;
-}
-
-h1 {
-  text-align: center;
-}
-
+/* Custom styles for the index page */
 .container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  margin-top: 50px;
 }
 
-.input-container {
+.card {
   margin-bottom: 20px;
 }
 
-.output-container {
-  margin-top: 20px;
+.card-title {
+  font-size: 1.5rem;
+  font-weight: 500;
 }
 
-.output {
-  margin-bottom: 10px;
+.card-content {
+  padding: 20px;
+}
+
+input[type="text"] {
+  width: 100%;
 }
