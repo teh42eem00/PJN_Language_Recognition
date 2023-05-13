@@ -8,43 +8,61 @@
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 </head>
 <body>
-    <div class="container">
-        <h1 class="center-align">Fasttext Language Recognition</h1>
-        <form method="POST" class="row">
-            <div class="input-field col s12">
-                <textarea id="text" name="text" class="materialize-textarea"></textarea>
-                <label for="text">Enter text</label>
+<div class="container">
+    <h1 class="center-align">Fasttext Language Recognition</h1>
+    <form method="POST" class="row">
+        <div class="input-field col s12">
+            <textarea id="text" name="text" class="materialize-textarea"></textarea>
+            <label for="text">Enter text</label>
+        </div>
+        <div class="center-align">
+            <button class="btn waves-effect waves-light" type="submit">Recognize Language</button>
+        </div>
+    </form>
+    {% if text %}
+        <div class="center-align">
+            <div class="col s12">
+                <h2>Input Text:</h2>
+                <p>{{ text }}</p>
             </div>
-            <div class="center-align">
-                <button class="btn waves-effect waves-light" type="submit">Recognize Language</button>
-            </div>
-        </form>
-        {% if text %}
+        </div>
         <div class="output-container">
             <div class="row">
                 <div class="col s6">
                     <h2 class="center-align">Own Model</h2>
                     {% for result in results.own_model %}
-                    <div class="card-panel">
-                        <strong>Language:</strong> {{ result.language }}<br>
-                        <strong>Probability:</strong> {{ result.probability }}
-                    </div>
+                        <div class="card-panel">
+                            <strong>Language:</strong> {{ result.language }}<br>
+                            <strong>Probability:</strong> {{ result.probability|round(10) }}
+                        </div>
                     {% endfor %}
+                    <div class="card-panel">
+                        <h3>Model Info:</h3>
+                        {% for key, value in models.own_model_info.items() %}
+                            <p><strong>{{ key }}:</strong> {{ value }}</p>
+                        {% endfor %}
+                    </div>
                 </div>
                 <div class="col s6">
-                    <h2 class="center-align">Pretrained Model</h2>
+                    <h2 class="center-align">Fasttext Model</h2>
                     {% for result in results.pretrained_model %}
-                    <div class="card-panel">
-                        <strong>Language:</strong> {{ result.language }}<br>
-                        <strong>Probability:</strong> {{ result.probability }}
-                    </div>
+                        <div class="card-panel">
+                            <strong>Language:</strong> {{ result.language }}<br>
+                            <strong>Probability:</strong> {{ result.probability|round(10) }}
+                        </div>
                     {% endfor %}
+                    <div class="card-panel">
+                        <h3>Model Info:</h3>
+                        {% for key, value in models.pretrained_model_info.items() %}
+                            <p><strong>{{ key }}:</strong> {{ value }}</p>
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
         </div>
-        {% endif %}
-    </div>
+    {% endif %}
+</div>
 
-    <script src="{{ url_for('static', filename='materialize.min.js') }}"></script>
+<script src="{{ url_for('static', filename='materialize.min.js') }}"></script>
 </body>
 </html>

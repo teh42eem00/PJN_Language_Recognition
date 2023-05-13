@@ -13,7 +13,7 @@ Project is created with:
 - Docker
 - Docker 3.11-slim-bullseye Debian image
 - HTML
-- CSS
+- CSS - Materialize Framework
 
 ## Run Locally
 
